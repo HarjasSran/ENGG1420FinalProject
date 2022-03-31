@@ -81,7 +81,9 @@ public class ENGG1420FinalProject extends Application {
         
         primaryStage.setScene(scene);
         
-        primaryStage.show();
+        main.start(primaryStage);
+        
+        //primaryStage.show();
 
 //        Button btn = new Button();
 //        btn.setText("Say 'Hello World'");
