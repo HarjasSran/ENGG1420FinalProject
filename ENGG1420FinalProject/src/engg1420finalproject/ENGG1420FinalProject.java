@@ -34,6 +34,8 @@ public class ENGG1420FinalProject extends Application {
             circle.setCenterY(circleData[1]);
             circle.setRadius(circleData[2]);
             circle.setFill(Color.BLUE);
+            circle.setStroke(Color.BLACK);
+            circle.setStrokeWidth(10);
             return circle;
         }
         
@@ -44,6 +46,8 @@ public class ENGG1420FinalProject extends Application {
             rect.setWidth(rectData[2]);
             rect.setHeight(rectData[3]);
             rect.setFill(Color.RED);
+            rect.setStroke(Color.WHITE);
+            rect.setStrokeWidth(10);
             
             return rect;
         }
@@ -55,6 +59,7 @@ public class ENGG1420FinalProject extends Application {
             line.setEndX(lineData[2]);
             line.setEndY(lineData[3]);
             line.setFill(Color.BLACK);
+            line.setStrokeWidth(10);
             
             return line;
         }
