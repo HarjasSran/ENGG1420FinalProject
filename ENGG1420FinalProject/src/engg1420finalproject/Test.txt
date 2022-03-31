@@ -1,0 +1,27 @@
+1000
+10
+2
+
+Circle
+10
+50
+50
+255, 0, 0
+effect
+Show
+10
+
+Rect
+100
+50
+25
+25
+5
+effect
+Show
+15
+effect
+Jump
+50
+30
+30
