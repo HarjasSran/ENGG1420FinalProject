@@ -21,6 +21,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.Group;
+import javafx.scene.shape.Shape;
 
 /**
  *
@@ -63,52 +64,38 @@ public class ENGG1420FinalProject extends Application {
             
             return line;
         }
+        
+        
+        
     @Override
-    public void start(Stage primaryStage) {
-        int[] circleData =  {200, 150, 50};
-        int[] rectData = {200, 150, 100, 100};
-        int[] lineData = {200, 150, 500, 150};
+    public void start(Stage stage) {
         
-        primaryStage.setTitle("Testing Circle");
+//        int[] circleData =  {200, 150, 50};
+//        int[] rectData = {200, 150, 100, 100};
+//        int[] lineData = {200, 150, 500, 150};
         
-        Circle circle = createCircle(circleData);
-        Rectangle rect = createRect(rectData);
-        Line line = createLine(lineData);
+        stage.setTitle("Testing Circle");
         
-        Group root = new Group(circle, rect, line);
+        AnimationPlayer.loadFile("src\\engg1420finalproject\\Test.txt");
+
+        Shape circle = AnimationPlayer.shapes[0];
+//        Circle circle = createCircle(circleData);
+        
+        Group root = new Group(circle);
         
         Scene scene = new Scene(root, 400, 300);
         
-        primaryStage.setScene(scene);
+        stage.setScene(scene);
         
-        main.start(primaryStage);
-        
-        //primaryStage.show();
+        stage.show();
 
-//        Button btn = new Button();
-//        btn.setText("Say 'Hello World'");
-//        btn.setOnAction(new EventHandler<ActionEvent>() {
-//            
-//            @Override
-//            public void handle(ActionEvent event) {
-//                System.out.println("Hello World!");
-//            }
-//        });
-//        
-//        StackPane root = new StackPane();
-//        root.getChildren().add(btn);
-//        
-//        Scene scene = new Scene(root, 400, 300);
-//        
-//        primaryStage.setTitle("Hello World!");
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         launch(args);
     }
     
