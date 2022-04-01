@@ -1,7 +1,7 @@
 /*
 Animation Player class
  */
-package engg1420finalproject;
+package ENGG1420FinalProject;
 
 /**
  *
@@ -22,7 +22,7 @@ public class AnimationPlayer {
     int speed;
     int elements;
     static Shape[] shapes = {null};
-    
+     
     public AnimationPlayer(){
         frames = 1000;
         speed = 10;
