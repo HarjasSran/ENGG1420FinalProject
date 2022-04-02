@@ -25,8 +25,10 @@ public class AnimationPlayer {
     static int frames;
     static int speed;
     static int elements;
-    static Shape[] shapes = {null};
+    Shape[] shapes = {null};
     static int counter = 0;
+    static String[] effects;
+    static int countEffects = 0;
      
     /**
      * Primary Constructor for AnimationPlayer
@@ -56,7 +58,7 @@ public class AnimationPlayer {
      * Method accessed to load the file with the animations within it 
      * @param file 
      */
-    static public void loadAnimationFromFile(String file){
+    public void loadAnimationFromFile(String file){
         try{
             //create file and scanner in order to correctly read file
             File f = new File(file);
@@ -160,11 +162,19 @@ public class AnimationPlayer {
                      * Hide Effect
                      * Start Frame #
                      */
+                    if(s.nextLine().equals("Hide")){
+                        effects[countEffects++] = "Hide";
+                        effects[countEffects++] = s.nextLine();
+                    }
                     
                     /**
                      * Show Effect
                      * Start Frame #
                      */
+                    else if(s.nextLine().equals("Show")){
+                        effects[countEffects++] = "Show";
+                        effects[countEffects++] = s.nextLine();
+                    }
                     
                     /**
                      * Jump Effect
@@ -172,12 +182,27 @@ public class AnimationPlayer {
                      * New X Position
                      * New Y Position
                      */
+                    else if(s.nextLine().equals("Jump")){
+                        effects[countEffects++] = "Jump";
+                        effects[countEffects++] = s.nextLine();
+                        effects[countEffects++] = s.nextLine();
+                        effects[countEffects++] = s.nextLine();
+                    }
                     
                     /**
                      * ChangeColor effect
                      * Start Frame #
                      * RGB of changed color
                      */
+                    else if(s.nextLine().equals("ChangeColor")){
+                        effects[countEffects++] = "ChangeColor";
+                        effects[countEffects++] = s.nextLine();
+                        effects[countEffects++] = s.nextLine();
+                        
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "There is an affect that cannot be read correclty in your text file.");
+                    }
                     
 
                 }
