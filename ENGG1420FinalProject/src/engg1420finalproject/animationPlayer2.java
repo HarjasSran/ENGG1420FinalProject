@@ -6,12 +6,13 @@
 package engg1420finalproject;
 
 import static ENGG1420FinalProject.AnimationPlayer.getInt;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -28,12 +29,7 @@ import javax.swing.JOptionPane;
  * @author harja
  */
 public abstract class animationPlayer2 extends Application {
-    
-    public void run(Stage primaryStage) {
-        
-    }
-    
-     
+   
     //Attributes of AnimationPlayer
     static int frames;
     static int speed;
@@ -54,7 +50,7 @@ public abstract class animationPlayer2 extends Application {
     }
     
     /**
-     * Secondary Constructor for AnimationPlayer
+     * Secondary contructor for AnimationPlayer
      * @param frames
      * @param speed
      * @param elements 
@@ -67,6 +63,20 @@ public abstract class animationPlayer2 extends Application {
     }
     
     
+    
+    public void run(Stage stage) {
+        //your animationa and stage stuff goes in here
+        
+        stage.setTitle("Animation Player");
+        
+        Shape circle = shapes[0];
+        Group root = new Group(circle);
+        Scene scene = new Scene(root,400,300);
+        
+        stage.setScene(scene);
+        stage.show();
+    }
+    
     /**
      * Method accessed to load the file with the animations within it 
      * @param file 
@@ -74,22 +84,27 @@ public abstract class animationPlayer2 extends Application {
     public void loadAnimationFromFile(String file){
         try{
             //create file and scanner in order to correctly read file
-            File f = new File(file);
-            Scanner s = new Scanner(f);
+            FileReader f = new FileReader(file);
+            BufferedReader br = new BufferedReader(f);
+            if(counter ==0){
+                //The first 3 lines of the file will hold the...
+                frames = getInt(br.readLine());//Number of frames
+                speed = getInt(br.readLine());//FPS 
+                elements = getInt(br.readLine());//Number of elements 
+            }
             
             //While there is still another line to read within the file
-            while(s.hasNextLine()){
+            for(int i = 0; i<elements; i++){
+        
 
-                //The first 3 lines of the file will hold the...
-                frames = getInt(s.nextLine());//Number of frames
-                speed = getInt(s.nextLine());//FPS 
-                elements = getInt(s.nextLine());//Number of elements 
+
                 
                 //there will be a space for the next section of the program
-                s.nextLine();
+                br.readLine();
+                String type = br.readLine();
 
                 //if the text file is going to attempt to create a circle, create it adn add it into the shapes array
-                if(s.nextLine().equals("Circle")){
+                if(type.equals("Circle")){
                     
                     /**
                      * Input for Circle goes in this order
@@ -101,14 +116,14 @@ public abstract class animationPlayer2 extends Application {
                      * Border Color
                      */
                     Circle c = new Circle();
-                    c.setRadius(getInt(s.nextLine()));
-                    c.setCenterX(getInt(s.nextLine()));
-                    c.setCenterY(getInt(s.nextLine()));
-                    String[] rgb = s.nextLine().split(",");
+                    c.setRadius(getInt(br.readLine()));
+                    c.setCenterX(getInt(br.readLine()));
+                    c.setCenterY(getInt(br.readLine()));
+                    String[] rgb = br.readLine().split(",");
                     Color color = Color.rgb(getInt(rgb[0]), getInt(rgb[1]), getInt(rgb[2]));
                     c.setFill(color); 
-                    c.setStrokeWidth(getInt(s.nextLine()));
-                    String[] rgb2 = s.nextLine().split(",");
+                    c.setStrokeWidth(getInt(br.readLine()));
+                    String[] rgb2 = br.readLine().split(",");
                     Color color2 = Color.rgb(getInt(rgb2[0]), getInt(rgb2[1]), getInt(rgb2[2]));
                     c.setStroke(color2);
                     //add the circle into the shape array of AnimationPlayer
@@ -116,7 +131,7 @@ public abstract class animationPlayer2 extends Application {
                 }
                 
                 //if the text file is going to attemp to dcreate a circle, create it and add to shape array
-                else if(s.nextLine().equals("Rect")){
+                else if(br.readLine().equals("Rect")){
 
                     /**
                      * Input for Rectangle goes in this order
@@ -129,15 +144,15 @@ public abstract class animationPlayer2 extends Application {
                      * Border Color
                      */
                     Rectangle r = new Rectangle();
-                    r.setHeight(getInt(s.nextLine()));
-                    r.setWidth(getInt(s.nextLine()));
-                    r.setX(getInt(s.nextLine()));
-                    r.setY(getInt(s.nextLine()));
-                    r.setStrokeWidth(getInt(s.nextLine()));
-                    String[] rgb = s.nextLine().split(",");
+                    r.setHeight(getInt(br.readLine()));
+                    r.setWidth(getInt(br.readLine()));
+                    r.setX(getInt(br.readLine()));
+                    r.setY(getInt(br.readLine()));
+                    r.setStrokeWidth(getInt(br.readLine()));
+                    String[] rgb = br.readLine().split(",");
                     Color color = Color.rgb(getInt(rgb[0]), getInt(rgb[1]), getInt(rgb[2]));
                     r.setFill(color); 
-                    String[] rgb2 = s.nextLine().split(",");
+                    String[] rgb2 = br.readLine().split(",");
                     Color color2 = Color.rgb(getInt(rgb2[0]), getInt(rgb2[1]), getInt(rgb2[2]));
                     r.setStroke(color2);
                     //add rectangle to shape array of AnimationPlayer
@@ -145,7 +160,7 @@ public abstract class animationPlayer2 extends Application {
                 }
                 
                 //if the text file is attempting to create a line, create it and add to the shape array
-                else if(s.nextLine().equals("Line")){
+                else if(br.readLine().equals("Line")){
                     /**
                      * Input for Line goes in this order
                      * Start X Position
@@ -156,12 +171,12 @@ public abstract class animationPlayer2 extends Application {
                      * Border Color
                      */
                     Line l = new Line();
-                    l.setStartX(getInt(s.nextLine()));
-                    l.setStartY(getInt(s.nextLine()));
-                    l.setEndX(getInt(s.nextLine()));
-                    l.setEndY(getInt(s.nextLine()));
-                    l.setStrokeWidth(getInt(s.nextLine()));
-                    String[] rgb = s.nextLine().split(",");
+                    l.setStartX(getInt(br.readLine()));
+                    l.setStartY(getInt(br.readLine()));
+                    l.setEndX(getInt(br.readLine()));
+                    l.setEndY(getInt(br.readLine()));
+                    l.setStrokeWidth(getInt(br.readLine()));
+                    String[] rgb = br.readLine().split(",");
                     Color color = Color.rgb(getInt(rgb[0]), getInt(rgb[1]), getInt(rgb[2]));
                     l.setStroke(color);
                     
@@ -170,23 +185,23 @@ public abstract class animationPlayer2 extends Application {
                 }
                 
                 //if the text file is attempting to describe an effect, read the effect differently dependent on effect
-                else if(s.nextLine().equals("effect")){
+                else if(br.readLine().equals("effect")){
                     /**
                      * Hide Effect
                      * Start Frame #
                      */
-                    if(s.nextLine().equals("Hide")){
+                    if(br.readLine().equals("Hide")){
                         effects[countEffects++] = "Hide";
-                        effects[countEffects++] = s.nextLine();
+                        effects[countEffects++] = br.readLine();
                     }
                     
                     /**
                      * Show Effect
                      * Start Frame #
                      */
-                    else if(s.nextLine().equals("Show")){
+                    else if(br.readLine().equals("Show")){
                         effects[countEffects++] = "Show";
-                        effects[countEffects++] = s.nextLine();
+                        effects[countEffects++] = br.readLine();
                     }
                     
                     /**
@@ -195,11 +210,11 @@ public abstract class animationPlayer2 extends Application {
                      * New X Position
                      * New Y Position
                      */
-                    else if(s.nextLine().equals("Jump")){
+                    else if(br.readLine().equals("Jump")){
                         effects[countEffects++] = "Jump";
-                        effects[countEffects++] = s.nextLine();
-                        effects[countEffects++] = s.nextLine();
-                        effects[countEffects++] = s.nextLine();
+                        effects[countEffects++] = br.readLine();
+                        effects[countEffects++] = br.readLine();
+                        effects[countEffects++] = br.readLine();
                     }
                     
                     /**
@@ -207,21 +222,21 @@ public abstract class animationPlayer2 extends Application {
                      * Start Frame #
                      * RGB of changed color
                      */
-                    else if(s.nextLine().equals("ChangeColor")){
+                    else if(br.readLine().equals("ChangeColor")){
                         effects[countEffects++] = "ChangeColor";
-                        effects[countEffects++] = s.nextLine();
-                        effects[countEffects++] = s.nextLine();
+                        effects[countEffects++] = br.readLine();
+                        effects[countEffects++] = br.readLine();
                         
                     }
                     else{
-                        JOptionPane.showMessageDialog(null, "There is an affect that cannot be read correclty in your text file.");
+                        JOptionPane.showMessageDialog(null, "There is an effect that cannot be read correclty in your text file.");
                     }
                     
 
                 }
                 
                 //if the next line is blank, nothing happens. While statement will continue
-                else if(s.nextLine().equals("")){
+                else if(br.readLine().equals("")){
                     
                 }
                 
@@ -231,8 +246,8 @@ public abstract class animationPlayer2 extends Application {
                 }
             }
         }
-        catch(FileNotFoundException e){
-            System.out.println(e);
+        catch(IOException ioe){
+            ioe.printStackTrace();
         }
     }
     
