@@ -9,6 +9,7 @@ import static ENGG1420FinalProject.AnimationPlayer.getInt;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -38,6 +39,12 @@ public abstract class animationPlayer2 extends Application {
     static int counter = 0;
     static String[] effects;
     static int countEffects = 0;
+    static String[] circleEffects;
+    static int countCircleEffects = 0;
+    static String[] rectEffects;
+    static int countRectEffects = 0;
+    static String[] lineEffects;
+    static int countLineEffects = 0;
      
     /**
      * Primary Constructor for AnimationPlayer
@@ -65,8 +72,7 @@ public abstract class animationPlayer2 extends Application {
     
     
     public void run(Stage stage) {
-        //your animationa and stage stuff goes in here
-        
+
         stage.setTitle("Animation Player");
         
         Shape circle = shapes[0];
@@ -75,6 +81,7 @@ public abstract class animationPlayer2 extends Application {
         
         stage.setScene(scene);
         stage.show();
+        
     }
     
     /**
@@ -95,10 +102,6 @@ public abstract class animationPlayer2 extends Application {
             
             //While there is still another line to read within the file
             for(int i = 0; i<elements; i++){
-        
-
-
-                
                 //there will be a space for the next section of the program
                 br.readLine();
                 String type = br.readLine();
@@ -128,6 +131,30 @@ public abstract class animationPlayer2 extends Application {
                     c.setStroke(color2);
                     //add the circle into the shape array of AnimationPlayer
                     shapes[counter++] = c;
+                    if(br.readLine().equals("effects")){
+                        if(br.readLine().equals("Show")){
+                            circleEffects[countCircleEffects++] = "Show";
+                            circleEffects[countCircleEffects++] = br.readLine();
+                        }
+                        else if(br.readLine().equals("Hide")){
+                            circleEffects[countCircleEffects++] = "Hide";
+                            circleEffects[countCircleEffects++] = br.readLine();
+                        }
+                        else if(br.readLine().equals("Jump")){
+                            circleEffects[countCircleEffects++] = "Jump";
+                            circleEffects[countCircleEffects++] = br.readLine();
+                            circleEffects[countCircleEffects++] = br.readLine();
+                            circleEffects[countCircleEffects++] = br.readLine();
+                        }
+                        else if(br.readLine().equals("ChangeColor")){
+                            circleEffects[countCircleEffects++] = "ChangeColor";
+                            circleEffects[countCircleEffects++] = br.readLine();
+                            String[] rgbC = br.readLine().split(",");
+                            circleEffects[countCircleEffects++] = rgbC[0];
+                            circleEffects[countCircleEffects++] = rgbC[1];
+                            circleEffects[countCircleEffects++] = rgbC[2];
+                        }
+                    }
                 }
                 
                 //if the text file is going to attemp to dcreate a circle, create it and add to shape array
@@ -157,6 +184,30 @@ public abstract class animationPlayer2 extends Application {
                     r.setStroke(color2);
                     //add rectangle to shape array of AnimationPlayer
                     shapes[counter++] = r;
+                    if(br.readLine().equals("effects")){
+                        if(br.readLine().equals("Show")){
+                            rectEffects[countRectEffects++] = "Show";
+                            rectEffects[countRectEffects++] = br.readLine();
+                        }
+                        else if(br.readLine().equals("Hide")){
+                            rectEffects[countRectEffects++] = "Hide";
+                            rectEffects[countRectEffects++] = br.readLine();
+                        }
+                        else if(br.readLine().equals("Jump")){
+                            rectEffects[countRectEffects++] = "Jump";
+                            rectEffects[countRectEffects++] = br.readLine();
+                            rectEffects[countRectEffects++] = br.readLine();
+                            rectEffects[countRectEffects++] = br.readLine();
+                        }
+                        else if(br.readLine().equals("ChangeColor")){
+                            rectEffects[countRectEffects++] = "ChangeColor";
+                            rectEffects[countRectEffects++] = br.readLine();
+                            String[] rgbC = br.readLine().split(",");
+                            rectEffects[countRectEffects++] = rgbC[0];
+                            rectEffects[countRectEffects++] = rgbC[1];
+                            rectEffects[countRectEffects++] = rgbC[2];
+                        }
+                    }
                 }
                 
                 //if the text file is attempting to create a line, create it and add to the shape array
@@ -182,58 +233,34 @@ public abstract class animationPlayer2 extends Application {
                     
                     //add line to the shape array of AnimationPlayer
                     shapes[counter++] = l;
-                }
-                
-                //if the text file is attempting to describe an effect, read the effect differently dependent on effect
-                else if(br.readLine().equals("effect")){
-                    /**
-                     * Hide Effect
-                     * Start Frame #
-                     */
-                    if(br.readLine().equals("Hide")){
-                        effects[countEffects++] = "Hide";
-                        effects[countEffects++] = br.readLine();
+                    if(br.readLine().equals("effects")){
+                        if(br.readLine().equals("Show")){
+                            lineEffects[countLineEffects++] = "Show";
+                            lineEffects[countLineEffects++] = br.readLine();
+                        }
+                        else if(br.readLine().equals("Hide")){
+                            lineEffects[countLineEffects++] = "Hide";
+                            lineEffects[countLineEffects++] = br.readLine();
+                        }
+                        else if(br.readLine().equals("Jump")){
+                            lineEffects[countLineEffects++] = "Jump";
+                            lineEffects[countLineEffects++] = br.readLine();
+                            lineEffects[countLineEffects++] = br.readLine();
+                            lineEffects[countLineEffects++] = br.readLine();
+                        }
+                        else if(br.readLine().equals("ChangeColor")){
+                            lineEffects[countLineEffects++] = "ChangeColor";
+                            lineEffects[countLineEffects++] = br.readLine();
+                            String[] rgbC = br.readLine().split(",");
+                            lineEffects[countLineEffects++] = rgbC[0];
+                            lineEffects[countLineEffects++] = rgbC[1];
+                            lineEffects[countLineEffects++] = rgbC[2];
+                        }
                     }
-                    
-                    /**
-                     * Show Effect
-                     * Start Frame #
-                     */
-                    else if(br.readLine().equals("Show")){
-                        effects[countEffects++] = "Show";
-                        effects[countEffects++] = br.readLine();
-                    }
-                    
-                    /**
-                     * Jump Effect
-                     * Start Frame #
-                     * New X Position
-                     * New Y Position
-                     */
-                    else if(br.readLine().equals("Jump")){
-                        effects[countEffects++] = "Jump";
-                        effects[countEffects++] = br.readLine();
-                        effects[countEffects++] = br.readLine();
-                        effects[countEffects++] = br.readLine();
-                    }
-                    
-                    /**
-                     * ChangeColor effect
-                     * Start Frame #
-                     * RGB of changed color
-                     */
-                    else if(br.readLine().equals("ChangeColor")){
-                        effects[countEffects++] = "ChangeColor";
-                        effects[countEffects++] = br.readLine();
-                        effects[countEffects++] = br.readLine();
-                        
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "There is an effect that cannot be read correclty in your text file.");
-                    }
-                    
 
                 }
+                
+                
                 
                 //if the next line is blank, nothing happens. While statement will continue
                 else if(br.readLine().equals("")){
@@ -258,5 +285,11 @@ public abstract class animationPlayer2 extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    
+    
+   
+
+    
     
 }
