@@ -70,7 +70,10 @@ public abstract class animationPlayer2 extends Application {
     }
     
     
-    
+    /**
+     * Method which runs the animation
+     * @param stage 
+     */
     public void run(Stage stage) {
 
         stage.setTitle("Animation Player");
@@ -118,38 +121,48 @@ public abstract class animationPlayer2 extends Application {
                      * Border Width
                      * Border Color
                      */
-                    Circle c = new Circle();
-                    c.setRadius(getInt(br.readLine()));
+                    Circle c = new Circle(); //create circle
+                    c.setRadius(getInt(br.readLine())); 
                     c.setCenterX(getInt(br.readLine()));
                     c.setCenterY(getInt(br.readLine()));
-                    String[] rgb = br.readLine().split(",");
-                    Color color = Color.rgb(getInt(rgb[0]), getInt(rgb[1]), getInt(rgb[2]));
-                    c.setFill(color); 
+                    String[] rgb = br.readLine().split(","); //this line holds the rgb color of the shape, split at each comma and save into array
+                    Color color = Color.rgb(getInt(rgb[0]), getInt(rgb[1]), getInt(rgb[2])); //create a Color from the rgb array 
+                    c.setFill(color); //set the color of the shape to the rgb read from the file
                     c.setStrokeWidth(getInt(br.readLine()));
-                    String[] rgb2 = br.readLine().split(",");
-                    Color color2 = Color.rgb(getInt(rgb2[0]), getInt(rgb2[1]), getInt(rgb2[2]));
+                    String[] rgb2 = br.readLine().split(","); //this line hold the rgb color of the stroke, split at each comma and save into array
+                    Color color2 = Color.rgb(getInt(rgb2[0]), getInt(rgb2[1]), getInt(rgb2[2])); //create a color from the rgb array
                     c.setStroke(color2);
                     //add the circle into the shape array of AnimationPlayer
                     shapes[counter++] = c;
+                    //check if there are effects
                     if(br.readLine().equals("effects")){
+                        //if there is a show effect
                         if(br.readLine().equals("Show")){
+                            //save into circle effect array and save the frame number it begins at
                             circleEffects[countCircleEffects++] = "Show";
                             circleEffects[countCircleEffects++] = br.readLine();
                         }
+                        //if there is a hide effect
                         else if(br.readLine().equals("Hide")){
+                            //save into circle effect array and save the frame number it begins at
                             circleEffects[countCircleEffects++] = "Hide";
                             circleEffects[countCircleEffects++] = br.readLine();
                         }
+                        //if there is a jump effect
                         else if(br.readLine().equals("Jump")){
+                            //save into circle effect array and save the frame number it begins at
                             circleEffects[countCircleEffects++] = "Jump";
                             circleEffects[countCircleEffects++] = br.readLine();
-                            circleEffects[countCircleEffects++] = br.readLine();
-                            circleEffects[countCircleEffects++] = br.readLine();
+                            circleEffects[countCircleEffects++] = br.readLine(); //x position of jump
+                            circleEffects[countCircleEffects++] = br.readLine(); //y position of jump
                         }
+                        //if there is a change color effect
                         else if(br.readLine().equals("ChangeColor")){
+                            //save into circle effect array and save the frame number it begins at 
                             circleEffects[countCircleEffects++] = "ChangeColor";
                             circleEffects[countCircleEffects++] = br.readLine();
-                            String[] rgbC = br.readLine().split(",");
+                            String[] rgbC = br.readLine().split(","); //this line holds the rgb color code, split at the comma and save into array
+                            //save the colours into the circle effect array
                             circleEffects[countCircleEffects++] = rgbC[0];
                             circleEffects[countCircleEffects++] = rgbC[1];
                             circleEffects[countCircleEffects++] = rgbC[2];
@@ -170,39 +183,49 @@ public abstract class animationPlayer2 extends Application {
                      * Fill Color in RGB
                      * Border Color
                      */
-                    Rectangle r = new Rectangle();
+                    Rectangle r = new Rectangle(); //create rectangle shape
                     r.setHeight(getInt(br.readLine()));
                     r.setWidth(getInt(br.readLine()));
                     r.setX(getInt(br.readLine()));
                     r.setY(getInt(br.readLine()));
                     r.setStrokeWidth(getInt(br.readLine()));
-                    String[] rgb = br.readLine().split(",");
-                    Color color = Color.rgb(getInt(rgb[0]), getInt(rgb[1]), getInt(rgb[2]));
-                    r.setFill(color); 
-                    String[] rgb2 = br.readLine().split(",");
-                    Color color2 = Color.rgb(getInt(rgb2[0]), getInt(rgb2[1]), getInt(rgb2[2]));
+                    String[] rgb = br.readLine().split(","); //this line has the rgb of the rect, split at the comma and save into array 
+                    Color color = Color.rgb(getInt(rgb[0]), getInt(rgb[1]), getInt(rgb[2])); //create a Color using the rgb array made
+                    r.setFill(color); ///set fill color
+                    String[] rgb2 = br.readLine().split(","); //this line has the stoke color of the rect, split at the comma and save into array
+                    Color color2 = Color.rgb(getInt(rgb2[0]), getInt(rgb2[1]), getInt(rgb2[2])); //create a Color using the rgb array made
                     r.setStroke(color2);
                     //add rectangle to shape array of AnimationPlayer
                     shapes[counter++] = r;
+                    //check if there are effects
                     if(br.readLine().equals("effects")){
+                        //if there is a show effect
                         if(br.readLine().equals("Show")){
+                            //save into rect effect array and save the frame number it begins at 
                             rectEffects[countRectEffects++] = "Show";
                             rectEffects[countRectEffects++] = br.readLine();
                         }
+                        //if there is a hide effect
                         else if(br.readLine().equals("Hide")){
+                            //save into rect effect array and save the frame number it begins at
                             rectEffects[countRectEffects++] = "Hide";
                             rectEffects[countRectEffects++] = br.readLine();
                         }
+                        //if there is a jump effect
                         else if(br.readLine().equals("Jump")){
+                            //save into rect effect array and save the frame number it begins at
                             rectEffects[countRectEffects++] = "Jump";
                             rectEffects[countRectEffects++] = br.readLine();
-                            rectEffects[countRectEffects++] = br.readLine();
-                            rectEffects[countRectEffects++] = br.readLine();
+                            rectEffects[countRectEffects++] = br.readLine(); //x position of jump
+                            rectEffects[countRectEffects++] = br.readLine(); //y position of jump
                         }
+                        //if thee is a change color effect
                         else if(br.readLine().equals("ChangeColor")){
+                            //save into rect effect array and save the frame number it begins at
                             rectEffects[countRectEffects++] = "ChangeColor";
                             rectEffects[countRectEffects++] = br.readLine();
-                            String[] rgbC = br.readLine().split(",");
+                            String[] rgbC = br.readLine().split(","); //this line holds the rgb color code
+                            //save the rbg color codes into the rect effect array
                             rectEffects[countRectEffects++] = rgbC[0];
                             rectEffects[countRectEffects++] = rgbC[1];
                             rectEffects[countRectEffects++] = rgbC[2];
@@ -221,37 +244,47 @@ public abstract class animationPlayer2 extends Application {
                      * Border Thickness
                      * Border Color
                      */
-                    Line l = new Line();
+                    Line l = new Line(); //create line shape
                     l.setStartX(getInt(br.readLine()));
                     l.setStartY(getInt(br.readLine()));
                     l.setEndX(getInt(br.readLine()));
                     l.setEndY(getInt(br.readLine()));
                     l.setStrokeWidth(getInt(br.readLine()));
-                    String[] rgb = br.readLine().split(",");
-                    Color color = Color.rgb(getInt(rgb[0]), getInt(rgb[1]), getInt(rgb[2]));
-                    l.setStroke(color);
+                    String[] rgb = br.readLine().split(","); //this line holds the stroke color, split at the comma and save into rgb array
+                    Color color = Color.rgb(getInt(rgb[0]), getInt(rgb[1]), getInt(rgb[2])); //use rgb array to create a color
+                    l.setStroke(color); //save the color as the stroke color 
                     
                     //add line to the shape array of AnimationPlayer
                     shapes[counter++] = l;
+                    //check if there are effects
                     if(br.readLine().equals("effects")){
+                        //if there is a show effect
                         if(br.readLine().equals("Show")){
+                            //save into line effect array and save the frame number it begins at
                             lineEffects[countLineEffects++] = "Show";
                             lineEffects[countLineEffects++] = br.readLine();
                         }
+                        //if there is a hide effect
                         else if(br.readLine().equals("Hide")){
+                            //save into line effect array and save the frame number it begins at
                             lineEffects[countLineEffects++] = "Hide";
                             lineEffects[countLineEffects++] = br.readLine();
                         }
+                        //if there is a jump effect
                         else if(br.readLine().equals("Jump")){
+                            //save into line effect array and save the frame number it begins at
                             lineEffects[countLineEffects++] = "Jump";
                             lineEffects[countLineEffects++] = br.readLine();
-                            lineEffects[countLineEffects++] = br.readLine();
-                            lineEffects[countLineEffects++] = br.readLine();
+                            lineEffects[countLineEffects++] = br.readLine(); //x position of jump
+                            lineEffects[countLineEffects++] = br.readLine(); //y position of jump
                         }
+                        //if there is a change color effect
                         else if(br.readLine().equals("ChangeColor")){
+                            //save into line effect array and save the frame number it begins at
                             lineEffects[countLineEffects++] = "ChangeColor";
                             lineEffects[countLineEffects++] = br.readLine();
-                            String[] rgbC = br.readLine().split(",");
+                            String[] rgbC = br.readLine().split(","); //this line holds the rgb code, split at the comma and save into rgb array
+                            //save the rgb color code into the line effect array
                             lineEffects[countLineEffects++] = rgbC[0];
                             lineEffects[countLineEffects++] = rgbC[1];
                             lineEffects[countLineEffects++] = rgbC[2];
