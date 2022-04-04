@@ -5,7 +5,7 @@
  */
 package engg1420finalproject;
 
-import static ENGG1420FinalProject.AnimationPlayer.getInt;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -77,40 +77,55 @@ public abstract class animationPlayer2 extends Application {
      */
     public void run(Stage stage) {
 
+        //set title of stage
         stage.setTitle("Animation Player");
         
+        //test if circle is able to run on screen
         Shape circle = shapes[0];
+        
+        //set the scene so it 
         Group root = new Group(circle);
         Scene scene = new Scene(root,400,300);
         
+        //show the user the screen with test circle on it 
         stage.setScene(scene);
         stage.show();
         
+        //create animation timer with handle to count and use frames
         AnimationTimer timer = new AnimationTimer(){
             private long lastRun = 0;
+            //handle method for animation timer to update and use frames, constantly running this method
             public void handle(long now){
-                if(lastRun ==0){
+                //if the last run was at 0, update it 
+                if(lastRun == 0){
                     lastRun = now;
                     return;
                 }
                 
+                //elapsed time is the time right now minus the time it last ran ( division to convert to seconds)
                 double elapsed = (now - lastRun)/1e9;
                 
+                //add elapsed time to time counter
                 tCounter += elapsed;
                 
+                //find the frame which the show effect occurs for our test cirlce (2nd element)
                 int frameOccur = getInt(circleEffects[1]);
                 
+                //find the time the circle effect is supposed to take place (in seconds from given frames)
                 int circleEffectTime = frameOccur/speed;
-                double labelText = counter * speed;
                 
-                if(counter > circleEffectTime){
+                //if the time counter is equal to or greater than the time when the circle effect is supposed to take place
+                if(tCounter >= circleEffectTime){
+                    //show the test circle due to the effect being the show method
                     circle.setOpacity(1.0);
                 }
-                
+                //update the last time the method ran
                 lastRun = now;
+                //start of the animation timer 
                 start();
             }
         };
+        //start the animation timer
         timer.start();
         
         
@@ -169,19 +184,19 @@ public abstract class animationPlayer2 extends Application {
                         if(br.readLine().equals("Show")){
                             //save into circle effect array and save the frame number it begins at
                             circleEffects[countCircleEffects++] = "Show";
-                            circleEffects[countCircleEffects++] = br.readLine();
+                            circleEffects[countCircleEffects++] = br.readLine(); //frame number
                         }
                         //if there is a hide effect
                         else if(br.readLine().equals("Hide")){
                             //save into circle effect array and save the frame number it begins at
                             circleEffects[countCircleEffects++] = "Hide";
-                            circleEffects[countCircleEffects++] = br.readLine();
+                            circleEffects[countCircleEffects++] = br.readLine(); //frame number
                         }
                         //if there is a jump effect
                         else if(br.readLine().equals("Jump")){
                             //save into circle effect array and save the frame number it begins at
                             circleEffects[countCircleEffects++] = "Jump";
-                            circleEffects[countCircleEffects++] = br.readLine();
+                            circleEffects[countCircleEffects++] = br.readLine(); //frame number
                             circleEffects[countCircleEffects++] = br.readLine(); //x position of jump
                             circleEffects[countCircleEffects++] = br.readLine(); //y position of jump
                         }
@@ -189,7 +204,7 @@ public abstract class animationPlayer2 extends Application {
                         else if(br.readLine().equals("ChangeColor")){
                             //save into circle effect array and save the frame number it begins at 
                             circleEffects[countCircleEffects++] = "ChangeColor";
-                            circleEffects[countCircleEffects++] = br.readLine();
+                            circleEffects[countCircleEffects++] = br.readLine(); //frame number
                             String[] rgbC = br.readLine().split(","); //this line holds the rgb color code, split at the comma and save into array
                             //save the colours into the circle effect array
                             circleEffects[countCircleEffects++] = rgbC[0];
@@ -232,19 +247,19 @@ public abstract class animationPlayer2 extends Application {
                         if(br.readLine().equals("Show")){
                             //save into rect effect array and save the frame number it begins at 
                             rectEffects[countRectEffects++] = "Show";
-                            rectEffects[countRectEffects++] = br.readLine();
+                            rectEffects[countRectEffects++] = br.readLine(); //frame number
                         }
                         //if there is a hide effect
                         else if(br.readLine().equals("Hide")){
                             //save into rect effect array and save the frame number it begins at
                             rectEffects[countRectEffects++] = "Hide";
-                            rectEffects[countRectEffects++] = br.readLine();
+                            rectEffects[countRectEffects++] = br.readLine(); //frame number
                         }
                         //if there is a jump effect
                         else if(br.readLine().equals("Jump")){
                             //save into rect effect array and save the frame number it begins at
                             rectEffects[countRectEffects++] = "Jump";
-                            rectEffects[countRectEffects++] = br.readLine();
+                            rectEffects[countRectEffects++] = br.readLine(); //frame number
                             rectEffects[countRectEffects++] = br.readLine(); //x position of jump
                             rectEffects[countRectEffects++] = br.readLine(); //y position of jump
                         }
@@ -252,7 +267,7 @@ public abstract class animationPlayer2 extends Application {
                         else if(br.readLine().equals("ChangeColor")){
                             //save into rect effect array and save the frame number it begins at
                             rectEffects[countRectEffects++] = "ChangeColor";
-                            rectEffects[countRectEffects++] = br.readLine();
+                            rectEffects[countRectEffects++] = br.readLine(); //frame number
                             String[] rgbC = br.readLine().split(","); //this line holds the rgb color code
                             //save the rbg color codes into the rect effect array
                             rectEffects[countRectEffects++] = rgbC[0];
@@ -326,7 +341,7 @@ public abstract class animationPlayer2 extends Application {
                 
                 //if the next line is blank, nothing happens. While statement will continue
                 else if(br.readLine().equals("")){
-                    
+                    br.readLine();
                 }
                 
                 //if none of the top options are true, then show them error message
@@ -346,6 +361,17 @@ public abstract class animationPlayer2 extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+    
+        
+    /**
+     * Method used to parse string into integer
+     * @param s - String which needs to be parsed
+     * @return - integer of the string
+     */
+    static public int getInt(String s){
+        int r = Integer.parseInt(s);
+        return r;
     }
 
     
