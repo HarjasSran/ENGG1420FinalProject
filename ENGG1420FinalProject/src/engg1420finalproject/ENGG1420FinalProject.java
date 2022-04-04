@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+Harjas Sran, Samy Rashad, Affan Ahmed, Sayansh Verma
+Final Project
+ENGG 1420
+Animation Player
+Main method
  */
 package ENGG1420FinalProject;
 
@@ -13,16 +15,14 @@ package ENGG1420FinalProject;
 public class ENGG1420FinalProject {
 
     public static void main(String[] args){
-               
+        //using object oreinted programming, create animation player object
         animationPlayer2 player = new animationPlayer2();
+        //load text file into animation player
         player.loadAnimationFromFile("src\\engg1420finalproject\\Test.txt");
+        //run what was read from the animation player text file
         player.run();
     }
 
-        
-        
-
-
-
+       
     
 }
