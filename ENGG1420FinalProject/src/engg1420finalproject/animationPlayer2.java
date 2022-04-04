@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+Harjas Sran, Samy Rashad, Affan Ahmed, Sayansh Verma
+Final Project
+ENGG 1420
+Animation Player
+Animation Player class which reads file and runs animation using javafx
  */
 package engg1420finalproject;
 
