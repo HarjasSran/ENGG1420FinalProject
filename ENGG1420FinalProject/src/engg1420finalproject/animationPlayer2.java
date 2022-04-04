@@ -37,6 +37,7 @@ public abstract class animationPlayer2 extends Application {
     static int elements;
     Shape[] shapes = {null};
     static int counter = 0;
+    static int tCounter = 0;
     static String[] effects;
     static int countEffects = 0;
     static String[] circleEffects;
@@ -84,6 +85,34 @@ public abstract class animationPlayer2 extends Application {
         
         stage.setScene(scene);
         stage.show();
+        
+        AnimationTimer timer = new AnimationTimer(){
+            private long lastRun = 0;
+            public void handle(long now){
+                if(lastRun ==0){
+                    lastRun = now;
+                    return;
+                }
+                
+                double elapsed = (now - lastRun)/1e9;
+                
+                tCounter += elapsed;
+                
+                int frameOccur = getInt(circleEffects[1]);
+                
+                int circleEffectTime = frameOccur/speed;
+                double labelText = counter * speed;
+                
+                if(counter > circleEffectTime){
+                    circle.setOpacity(1.0);
+                }
+                
+                lastRun = now;
+                start();
+            }
+        };
+        timer.start();
+        
         
     }
     
